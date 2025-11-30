@@ -1,0 +1,117 @@
+{
+  "directors": [
+    { "username": "director_school1", "password": "SecurePass@2025", "school": "Mirzo Ulug'bek Maktabi №1" },
+    { "username": "director_school2", "password": "Director@2025", "school": "Toshkent Davlat Maktabi" }
+  ],
+  "teachers": [
+    {
+      "id": 1001,
+      "name": "Ali",
+      "surname": "Veli",
+      "father": "Otabek",
+      "subject": "Matematika",
+      "login": "ali_login",
+      "password": "ali_pass",
+      "school": "Mirzo Ulug'bek Maktabi №1"
+    },
+    {
+      "id": 1002,
+      "name": "Sardor",
+      "surname": "Qodirova",
+      "father": "Baxtiyor",
+      "subject": "Fizika",
+      "login": "sardor_physics",
+      "password": "Physics2024",
+      "school": "Mirzo Ulug'bek Maktabi №1"
+    },
+    {
+      "id": 1003,
+      "name": "Gulnora",
+      "surname": "Rustamova",
+      "father": "Rustam",
+      "subject": "Ingliz tili",
+      "login": "gulnora_eng",
+      "password": "English123",
+      "school": "Test Maktab"
+    }
+  ],
+  "students": [
+    {
+      "id": 2001,
+      "name": "Leylo",
+      "surname": "Xo'jaeva",
+      "father": "Bahrom",
+      "classId": 3001
+    },
+    {
+      "id": 2002,
+      "name": "Bahrom",
+      "surname": "Axrorov",
+      "father": "Ahmad",
+      "classId": 3001
+    },
+    {
+      "id": 2003,
+      "name": "Nasrulla",
+      "surname": "Ismoilov",
+      "father": "Ismail",
+      "classId": 3001
+    },
+    {
+      "id": 2004,
+      "name": "Malika",
+      "surname": "Sharipova",
+      "father": "Sharif",
+      "classId": 3002
+    },
+    {
+      "id": 2005,
+      "name": "Komron",
+      "surname": "Abdullayev",
+      "father": "Abdullah",
+      "classId": 3002
+    }
+  ],
+  "classes": [
+    { "id": 3001, "name": "9-A", "school": "Test Maktab" },
+    { "id": 3002, "name": "9-B", "school": "Test Maktab" },
+    { "id": 3003, "name": "10-A", "school": "Mirzo Ulug'bek Maktabi" }
+  ],
+  "classTeachers": {
+    "3001": [
+      { "id": 1001, "name": "Ali", "surname": "Veli", "father": "Otabek", "subject": "Matematika" },
+      { "id": 1002, "name": "Sardor", "surname": "Qodirova", "father": "Baxtiyor", "subject": "Fizika" }
+    ],
+    "3002": [
+      { "id": 1003, "name": "Gulnora", "surname": "Rustamova", "father": "Rustam", "subject": "Ingliz tili" }
+    ],
+    "3003": []
+  },
+  "classStudents": {
+    "3001": [2001, 2002, 2003],
+    "3002": [2004, 2005],
+    "3003": []
+  },
+  "studentCoins": {
+    "2001": 45,
+    "2002": 32,
+    "2003": 28,
+    "2004": 55,
+    "2005": 38
+  },
+  "classHomeroom": {
+    "3001": 1001,
+    "3002": 1003
+  },
+  "schoolExpiry": {
+    "Test Maktab": "2025-12-31",
+    "Mirzo Ulug'bek Maktabi": "2025-06-30"
+  },
+  "coinHistory": [
+    { "id": 1, "studentId": 2001, "amount": 5, "ts": "2025-11-29T08:00:00Z", "classId": 3001 },
+    { "id": 2, "studentId": 2001, "amount": 10, "ts": "2025-11-29T10:30:00Z", "classId": 3001 },
+    { "id": 3, "studentId": 2002, "amount": 8, "ts": "2025-11-29T09:15:00Z", "classId": 3001 },
+    { "id": 4, "studentId": 2004, "amount": 15, "ts": "2025-11-29T11:00:00Z", "classId": 3002 }
+  ]
+}
+

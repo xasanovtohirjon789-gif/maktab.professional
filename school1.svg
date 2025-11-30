@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1">
+      <stop offset="0" stop-color="#6C5CE7"/>
+      <stop offset="1" stop-color="#0984E3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g1)" rx="24"/>
+  <g transform="translate(120,120)" fill="#fff" opacity="0.95">
+    <rect x="80" y="200" width="900" height="380" rx="18" fill="#ffffff" opacity="0.06"/>
+    <g transform="translate(60,40)">
+      <rect x="60" y="120" width="760" height="240" rx="10" fill="#fff" opacity="0.12"/>
+      <rect x="120" y="40" width="160" height="120" rx="8" fill="#fff" opacity="0.18"/>
+      <circle cx="240" cy="200" r="26" fill="#fff" opacity="0.2"/>
+    </g>
+    <text x="150" y="620" font-family="Segoe UI, Arial" font-size="48" fill="#fff">Maktab</text>
+  </g>
+</svg>

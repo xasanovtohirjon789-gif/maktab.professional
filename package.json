@@ -1,0 +1,11 @@
+{
+  "name": "toha_coins",
+  "version": "1.0.0",
+  "description": "Local static site with optional data.json persistence",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

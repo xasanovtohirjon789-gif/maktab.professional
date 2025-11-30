@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Mantab Coin Tizimi - https://maktabcointizimi.uz</title>
+    <style>
+        :root {
+            --primary: #5865ff;
+            --primary-light: #7c8eff;
+            --primary-dark: #4449cc;
+            --secondary: #764fa2;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #3498db;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --muted: #7f8c8d;
+            --border: #bdc3c7;
+            --text: #2c3e50;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764fa2 100%);
+            min-height: 100vh;
+            padding: 0;
+        }
+        
+        .screen { 
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+        }
+        .screen.active { display: flex; }
+        
+        /* LOGIN STYLES */
+        #loginScreen {
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.95) 0%, 
+                rgba(118, 79, 162, 0.95) 100%),
+                url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=60');
+            background-size: cover;
+            background-position: center;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .login-title {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+            margin: 12px 0;
+            text-align: center;
+        }
+        
+        .login-subtitle {
+            color: var(--muted);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .form-group label {
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+            background: #fafafa;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(88, 101, 255, 0.1);
+        }
+        
+        .form-group input::placeholder {
+            color: #b0b0b0;
+        }
+        
+        .password-wrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .password-wrapper input {
+            flex: 1;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        
+        .toggle-password:hover {
+            opacity: 1;
+        }
+        
+        .btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(88, 101, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(88, 101, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #e0e0e0;
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .btn-info {
+            background: var(--info);
+            color: white;
+        }
+        
+        .error-message {
+            color: var(--danger);
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        /* PANEL STYLES */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #2c3e50 0%, #1a252f 100%);
+            padding: 24px 0;
+            color: white;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-title {
+            font-size: 20px;
+            font-weight: 700;
+            padding: 0 20px 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 16px;
+        }
+        
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 12px 16px;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(88, 101, 255, 0.3);
+        }
+        
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px;
+            background: #f5f7fa;
+        }
+        
+        .content-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+        
+        h2 {
+            color: var(--dark);
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        h3 {
+            color: var(--dark);
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary);
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            color: var(--muted);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
+            margin-bottom: 24px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table thead {
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .data-table th {
+            color: var(--dark);
+            font-weight: 600;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .data-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .class-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .class-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .school-hero {
+            width: 100%;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            background: linear-gradient(135deg, #667eea, #764fa2);
+        }
+        
+        .school-card {
+            border: 2px solid #e0e0e0;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .section-header h2 {
+            margin-bottom: 0;
+        }
+        
+        .no-data-message {
+            background: #f0f3f7;
+            border-left: 4px solid var(--info);
+            padding: 16px;
+            border-radius: 6px;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+        
+        .admin-info {
+            background: linear-gradient(135deg, rgba(88, 101, 255, 0.1), rgba(118, 79, 162, 0.1));
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .admin-info p {
+            margin: 8px 0;
+            color: var(--dark);
+        }
+        
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .hidden { display: none !important; }
+        
+        .coin-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .coin-display {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .page-hero {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-end;
+            padding: 24px;
+            color: white;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .page-hero.fallback {
+            background: linear-gradient(135deg, #667eea, #764fa2);
+        }
+        
+        .page-hero h2 {
+            font-size: 28px;
+            color: white;
+            margin-bottom: 0;
+        }
+        
+        .class-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .class-actions .btn {
+            padding: 10px 16px;
+            font-size: 14px;
+        }
+        
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .controls select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        
+        .panel {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #f8f9fa;
+        }
+        
+        .panel-body {
+            padding: 20px;
+        }
+        
+        .striped tbody tr:nth-child(odd) {
+            background: #f9f9f9;
+        }
+        
+        .full-width {
+            width: 100%;
+        }
+        
+        .small {
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- LOGIN OYNASI -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="login-box">
+                <div style="text-align:center;margin-bottom:12px;">
+                    <div style="font-size:56px;margin-bottom:12px;">🎓</div>
+                    <img src="https://images.unsplash.com/photo-1535914254981-b5012eebbd15?auto=format&fit=crop&w=200&q=60" alt="logo" style="width:76px;height:76px;border-radius:12px;object-fit:cover;border:3px solid rgba(88,101,255,0.2);margin-bottom:12px;"/>
+                </div>
+                <h1 class="login-title">toha_coins</h1>
+                <p class="login-subtitle">Maktab Boshqaruv Tizimi</p>
+                <p style="text-align:center;color:var(--muted);font-size:13px;margin-bottom:24px;">Tizimga kirish uchun login va parol kiriting</p>
+
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="username">📧 Login:</label>
+                        <input type="text" id="username" placeholder="Sizning loginni kiriting" required autocomplete="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">🔐 Parol:</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" placeholder="Parolni kiriting" required autocomplete="current-password">
+                            <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">👁️</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">↓ Tizimga Kirish</button>
+                </form>
+
+                <p id="loginError" class="error-message" style="margin-top:12px;"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIREKTOR PANELI -->
+    <div id="directorPanel" class="screen">
+        <div class="sidebar">
+            <h2 class="sidebar-title">👨‍💼 Direktor Paneli</h2>
+            <nav class="nav-menu">
+                <button class="nav-btn active" onclick="showDashboard()">📊 Bosh sahifa</button>
+                <button class="nav-btn" onclick="showTeachers()">👨‍🏫 O'qituvchilar</button>
+                <button class="nav-btn" onclick="showStudents()">👨‍🎓 O'quvchilar</button>
+                <button class="nav-btn" onclick="showClasses()">🏫 Sinflar</button>
+            </nav>
+            <button onclick="logout()" style="margin-top:auto;background:rgba(231,76,60,0.1);color:#e74c3c;border:none;border-radius:8px;padding:12px 16px;cursor:pointer;font-weight:500;font-size:15px;transition:all 0.3s ease;margin-left:16px;margin-right:16px;margin-bottom:16px;">🚪 Chiqish</button>
+        </div>
+
+        <div class="main-content">
+            <!-- Dashboard -->
+            <div id="dashboard" class="content-section active">
+                <h2>🎓 Direktor Paneli - Xush kelibsiz!</h2>
+                <p style="color:var(--muted);margin-bottom:20px;">Maktabingizning barcha statistikasini bu yerda ko'rishingiz mumkin</p>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>👨‍🏫 O'qituvchilar</h3>
+                        <p id="teacherCount" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>👨‍🎓 O'quvchilar</h3>
+                        <p id="studentCount" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>🏢 Sinflar</h3>
+                        <p id="classCount" class="stat-number">0</p>
+                    </div>
+                </div>
+                <div class="form-container" style="margin-top:18px;">
+                    <h3>🖼️ Maktab rasmi (Direktor uchun)</h3>
+                    <p style="color:var(--muted);margin-bottom:12px;font-size:13px;">Maktab uchun rasmni yuklang - bu rasmlar sinf kartalarida ko'rinadi</p>
+                    <form id="schoolImageForm">
+                        <div class="form-group">
+                            <label for="directorSchoolImageInput">📸 Rasm tanlang:</label>
+                            <input type="file" id="directorSchoolImageInput" accept="image/*" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">💾 Rasmni Saqlash</button>
+                    </form>
+                </div>
+                <div class="panel" id="directorRankingPanel" style="margin-top:18px;">
+                    <div class="panel-header">
+                        <strong>🏆 Maktab Reytingi (Direktor uchun)</strong>
+                        <div class="controls">
+                            <select id="directorRankingPeriod">
+                                <option value="day">📅 Bugungi</option>
+                                <option value="month">📆 Oylik</option>
+                                <option value="year">📊 Yillik</option>
+                            </select>
+                            <button id="btnRefreshDirectorRanking" class="btn btn-info" style="padding:8px 12px;">🔄 Yangilash</button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table id="directorRankingTable" class="striped full-width">
+                            <thead><tr><th>#</th><th>O'quvchi</th><th>Sinf</th><th>Ball</th></tr></thead>
+                            <tbody id="directorRankingTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- O'qituvchilar -->
+            <div id="teachers" class="content-section">
+                <div class="section-header">
+                    <h2>👨‍🏫 O'qituvchilar Ro'yxati</h2>
+                    <button class="btn btn-success" onclick="toggleAddTeacherForm()">➕ O'qituvchi qo'shish</button>
+                </div>
+
+                <div id="addTeacherForm" class="form-container hidden">
+                    <h3>➕ Yangi O'qituvchi Qo'shish</h3>
+                    <p style="color:var(--muted);margin-bottom:12px;font-size:13px;">O'qituvchini tizimga qo'shish uchun quyidagi ma'lumotlarni to'ldiring</p>
+                    <form id="teacherForm">
+                        <div class="form-group">
+                            <label>📚 Fan:</label>
+                            <input type="text" id="subject" placeholder="Masalan: Matematika, Fizika, Ingliz tili" required>
+                            <small style="color:var(--muted);display:block;margin-top:4px;">O'qitadi turgan fanning nomini kiriting</small>
+                        </div>
+                        <div class="form-group">
+                            <label>👤 Ismi:</label>
+                            <input type="text" id="teacherName" placeholder="Masalan: Ali" required>
+                        </div>
+                        <div class="form-group">
+                            <label>👨‍👩‍👧 Familiyasi:</label>
+                            <input type="text" id="teacherSurname" placeholder="Masalan: Qo'chqorov" required>
+                        </div>
+                        <div class="form-group">
+                            <label>👨 Otasining ismi:</label>
+                            <input type="text" id="teacherFather" placeholder="Masalan: Abdullayev" required>
+                        </div>
+                        <div class="form-group">
+                            <label>🔑 Login:</label>
+                            <input type="text" id="teacherLogin" placeholder="Masalan: ali_teacher_2025" required>
+                            <small style="color:var(--muted);display:block;margin-top:4px;">Noyob login yarating</small>
+                        </div>
+                        <div class="form-group">
+                            <label>🔐 Parol:</label>
+                            <input type="password" id="teacherPassword" placeholder="Masalan: SecurePass123" required>
+                            <small style="color:var(--muted);display:block;margin-top:4px;">Xavfsiz parol yarating</small>
+                        </div>
+                        <div style="display:flex;gap:12px;">
+                            <button type="submit" class="btn btn-primary">✅ Qo'shish</button>
+                            <button type="button" class="btn btn-secondary" onclick="toggleAddTeacherForm()">❌ Bekor qilish</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="teachersList" class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>F.I.O</th>
+                                <th>📚 Fan</th>
+                                <th>🔑 Login</th>
+                                <th>🔐 Parol</th>
+                                <th>⚙️ Amallar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teachersTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- O'quvchilar -->
+            <div id="students" class="content-section">
+                <div class="section-header">
+                    <h2>👨‍🎓 O'quvchilar Ro'yxati</h2>
+                </div>
+
+                <div id="studentsList" class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>F.I.O</th>
+                                <th>🏢 Sinf</th>
+                                <th>⚙️ Amallar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sinflar -->
+            <div id="classes" class="content-section">
+                <div class="section-header">
+                    <h2>🏫 Sinflar Ro'yxati</h2>
+                </div>
+
+                <div id="classesGrid">
+                </div>
+
+                <div id="noClassesMessage" class="no-data-message">
+                    <p>📌 Hozircha sinflar yo'q. Yangi sinf qo'shish uchun quyidagi formasini to'ldiring:</p>
+                </div>
+
+                <div class="form-container">
+                    <h3>➕ Yangi Sinf Qo'shish</h3>
+                    <form id="classForm">
+                        <div class="form-group">
+                            <label>🏢 Sinf nomi:</label>
+                            <input type="text" id="className" placeholder="Masalan: 9-A, 10-B, 11-C" required>
+                            <small style="color:var(--muted);display:block;margin-top:4px;">Sinf identifikator: raqam-harf (masalan: 9-A)</small>
+                        </div>
+                        <div class="form-group">
+                            <label>🖼️ Sinf rasmi (ixtiyoriy):</label>
+                            <input type="file" id="classImageInput" accept="image/*" />
+                            <small style="color:var(--muted);display:block;margin-top:4px;">PNG, JPG, GIF formatidagi rasmlarni tanlang</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">➕ Sinf Qo'shish</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SINF SAHIFASI -->
+    <div id="classPage" class="screen">
+        <div class="main-content" style="position:relative;">
+            <button class="btn btn-secondary" onclick="goBackToDirector()" style="position:absolute;top:0;right:0;padding:8px 12px;font-size:13px;">← Ortga qaytish</button>
+            <!-- Sinf Ma'lumotlari -->
+            <div id="classOverview" class="content-section active">
+                <div id="classHero" class="page-hero fallback">
+                    <h2 id="classPageTitle">🏢 Sinf Paneli</h2>
+                </div>
+                <h3 id="classOverviewTitle">📋 Sinf ma'lumotlari</h3>
+                <div id="homeroomAssignContainer" style="margin-top:10px;display:none;background:#f0f8ff;padding:12px;border-radius:8px;border-left:3px solid #3498db;">
+                    <label style="margin-right:8px;font-weight:700">👨‍🏫 Sinf raxbarni belgilang:</label>
+                    <select id="homeroomSelect" style="padding:8px;border-radius:6px;border:1px solid #ddd;margin-right:8px;"></select>
+                    <button class="btn btn-primary" style="margin-left:8px;padding:8px 12px;font-size:13px;" onclick="assignHomeroom(currentClass)">✅ Tayinlash</button>
+                </div>
+                <div class="class-actions">
+                    <button class="btn btn-success" id="btnAddStudent" onclick="toggleAddStudentForm()" style="display: none;">➕ O'quvchi qo'shish</button>
+                    <button class="btn btn-info" id="btnAddTeacher" onclick="toggleAddTeacherToClassForm()" style="display: none;">🔗 O'qituvchi biriktirish</button>
+                </div>
+
+                <div id="classWeekInfo" style="margin-top:8px;color:var(--muted);font-weight:600;background:#f5f5f5;padding:8px 12px;border-radius:6px;display:inline-block;">📅 Hafta boshi: -</div>
+
+                <div id="addStudentForm" class="form-container hidden">
+                    <h3>➕ O'quvchi Qo'shish</h3>
+                    <p style="color:var(--muted);margin-bottom:12px;font-size:13px;">Sinfga yangi o'quvchi qo'shish uchun quyidagi ma'lumotlarni kiriting</p>
+                    <form id="studentForm">
+                        <div class="form-group">
+                            <label>👤 Ismi:</label>
+                            <input type="text" id="studentName" placeholder="Masalan: Sardor" required>
+                        </div>
+                        <div class="form-group">
+                            <label>👨‍👩‍👧 Familiyasi:</label>
+                            <input type="text" id="studentSurname" placeholder="Masalan: Yo'ldashev" required>
+                        </div>
+                        <div class="form-group">
+                            <label>👨 Otasining ismi:</label>
+                            <input type="text" id="studentFather" placeholder="Masalan: Abdullayev" required>
+                        </div>
+                        <div style="display:flex;gap:12px;">
+                            <button type="submit" class="btn btn-primary">✅ Qo'shish</button>
+                            <button type="button" class="btn btn-secondary" onclick="toggleAddStudentForm()">❌ Bekor qilish</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="addTeacherToClassForm" class="form-container hidden">
+                    <h3>🔗 O'qituvchi Biriktirish</h3>
+                    <p style="color:var(--muted);margin-bottom:12px;font-size:13px;">O'qituvchini sinfga biriktirish uchun login va parol kiriting</p>
+                    <form id="teacherToClassForm">
+                        <div class="form-group">
+                            <label>📚 O'qituvchining fani:</label>
+                            <input type="text" id="classTeacherSubject" placeholder="Masalan: Matematika" required>
+                        </div>
+                        <div class="form-group">
+                            <label>🔑 O'qituvchining login:</label>
+                            <input type="text" id="classTeacherLogin" placeholder="O'qituvchining logini" required>
+                        </div>
+                        <div class="form-group">
+                            <label>🔐 O'qituvchining parol:</label>
+                            <input type="password" id="classTeacherPassword" placeholder="O'qituvchining paroli" required>
+                        </div>
+                        <div style="display:flex;gap:12px;">
+                            <button type="submit" class="btn btn-primary">✅ Biriktirish</button>
+                            <button type="button" class="btn btn-secondary" onclick="toggleAddTeacherToClassForm()">❌ Bekor qilish</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- O'quvchilar jadavali -->
+                <div class="table-container" style="margin-top: 30px;">
+                    <h3 style="margin-bottom: 20px; color: #2c3e50; font-weight: 700;">👨‍🎓 Sinfdagi O'quvchilar</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>👤 O'quvchi</th>
+                                <th>💰 Coinlar</th>
+                                <th>⚙️ Amallar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="classStudentsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- O'qituvchilar jadavali -->
+                <div class="table-container" style="margin-top: 30px;">
+                    <h3 style="margin-bottom: 20px; color: #2c3e50; font-weight: 700;">👨‍🏫 Sinfdagi O'qituvchilar</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>👤 O'qituvchi</th>
+                                <th>📚 Fan</th>
+                                <th>⚙️ Amallar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="classTeachersTableBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel" id="classRankingPanel">
+                    <div class="panel-header">
+                        <strong>🏆 Reyting (Sinf)</strong>
+                        <div class="controls">
+                            <select id="classRankingPeriod">
+                                <option value="day">Bugungi</option>
+                                <option value="month">Oylik</option>
+                                <option value="year">Yillik</option>
+                            </select>
+                            <button id="btnRefreshClassRanking">Yangilash</button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table id="classRankingTable" class="striped full-width">
+                            <thead>
+                                <tr><th>#</th><th>Ism</th><th>Ball</th></tr>
+                            </thead>
+                            <tbody id="classRankingTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- O'QITUVCHI PANELI -->
+    <div id="teacherPanel" class="screen">
+        <div class="sidebar">
+            <h2 class="sidebar-title">👨‍🏫 O'qituvchi Paneli</h2>
+            <nav class="nav-menu">
+                <button class="nav-btn active" onclick="showTeacherDashboard()">📊 Bosh sahifa</button>
+                <button class="nav-btn" onclick="showTeacherClasses()">🏢 Sinflar</button>
+            </nav>
+            <button onclick="logout()" style="margin-top:auto;background:rgba(231,76,60,0.1);color:#e74c3c;border:none;border-radius:8px;padding:12px 16px;cursor:pointer;font-weight:500;font-size:15px;transition:all 0.3s ease;margin-left:16px;margin-right:16px;margin-bottom:16px;">🚪 Chiqish</button>
+        </div>
+
+        <div class="main-content">
+            <!-- Teacher Dashboard -->
+            <div id="teacherDashboard" class="content-section active">
+                <h2 id="teacherGreeting">👨‍🏫 Xush kelibsiz, O'qituvchi!</h2>
+                <p style="color:var(--muted);margin-bottom:20px;">Sizning sinflaringiz va o'quvchilaring statistikasi</p>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>🏢 Sinflar</h3>
+                        <p id="teacherClassCount" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>👨‍🎓 O'quvchilar</h3>
+                        <p id="teacherStudentCount" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>✅ Tayyor</h3>
+                        <p id="teacherReadyCount" class="stat-number">0</p>
+                    </div>
+                </div>
+                <div style="margin-top:18px;">
+                    <h3 style="margin-bottom:10px;color:#102030;">📌 Siz sinf raxbar bolgan sinflar</h3>
+                    <div id="teacherHomeroomList" class="classes-grid"></div>
+                </div>
+            </div>
+
+            <!-- Teacher Classes -->
+            <div id="teacherClasses" class="content-section">
+                <div class="section-header">
+                    <h2>📚 Mening Sinflarim</h2>
+                </div>
+
+                <div id="teacherNoClassesMessage" class="no-data-message" style="display: none;">
+                    📌 Siz hali sinfga biriktirilmagansiz.
+                </div>
+
+                <div class="classes-grid" id="teacherClassesGrid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN PANELI -->
+    <div id="adminPanel" class="screen" style="display:none;">
+        <div class="sidebar">
+            <h2 class="sidebar-title">🛡️ Maktab Tizimi</h2>
+            <nav class="nav-menu">
+                <button class="nav-btn active" onclick="showAdminDashboard()">📊 Bosh sahifa</button>
+                <button class="nav-btn" onclick="showAdminSchoolsList()">🏫 Barcha Maktablar</button>
+                <button class="nav-btn" onclick="showAllDirectors()">👨‍💼 Direktorlar</button>
+                <button class="nav-btn" onclick="showAddDirector()">➕ Direktor Qo'shish</button>
+            </nav>
+            <button onclick="logout()" style="margin-top:auto;background:rgba(231,76,60,0.1);color:#e74c3c;margin-left:16px;margin-right:16px;margin-bottom:16px;border:none;border-radius:8px;padding:12px 16px;cursor:pointer;font-weight:500;font-size:15px;transition:all 0.3s ease;">🚪 Chiqish</button>
+        </div>
+
+        <div class="main-content">
+            <!-- Admin Dashboard -->
+            <div id="adminDashboard" class="content-section active">
+                <h2>🛡️ Admin Paneli - Xush kelibsiz!</h2>
+                <p style="color:var(--muted);margin-bottom:20px;">Butun maktab tizimini bu yerdan boshqarib olasiz</p>
+                
+                <div class="stats-container" style="margin-top:24px;">
+                    <div class="stat-card">
+                        <h3>🏫 Maktablar</h3>
+                        <p id="adminSchoolCount" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>👨‍💼 Direktorlar</h3>
+                        <p id="adminDirectorCount" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>🏢 Sinflar</h3>
+                        <p id="adminClassCount" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>👨‍🎓 O'quvchilar</h3>
+                        <p id="adminStudentCount" class="stat-number">0</p>
+                    </div>
+                </div>
+                
+                <div class="form-container" style="margin-top:24px;">
+                    <h3>📖 Admin Paneli Haqida</h3>
+                    <p style="color:var(--muted);line-height:1.6;">Bu panelda siz butun o'quv tizimini boshqara olasiz. Barcha maktablarni, direktorlarni va ularning faoliyat muddatlarini to'liq nazorat qila olasiz. Har bir maktab uchun faoliyat muddatini kunlarda belgilashingiz mumkin.</p>
+                    <ul style="color:var(--muted);line-height:1.8;margin-left:20px;margin-top:12px;">
+                        <li><strong>🏫 Barcha Maktablar:</strong> Tizimda ro'yxatga olingan barcha maktablar va ularni boshqarish, muddat qo'shish</li>
+                        <li><strong>👨‍💼 Direktorlar:</strong> Maktab direktorlarining login/parol ma'lumotlarini ko'rish, o'zgartirish va o'chirish</li>
+                        <li><strong>➕ Direktor Qo'shish:</strong> Yangi maktab va direktor qo'shish, faoliyat muddati belgilash</li>
+                        <li><strong>📊 Statistika:</strong> Ushbu paneldan butun tizimning umumiy statistikasini ko'rishingiz mumkin</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Barcha Sinflar -->
+            <div id="adminSchoolsListSection" class="content-section">
+                <h2>🏫 Barcha Maktablar</h2>
+                <p style="color:var(--muted);margin-bottom:20px;">Tizimga ro'yxatga olingan barcha maktablar ro'yxati</p>
+                <div id="schoolsList" class="classes-grid" style="margin-top:18px">
+                    <!-- Filled by script: school cards -->
+                </div>
+                <div style="margin-top:24px;">
+                    <h3>⚙️ Maktablarni boshqarish (Admin)</h3>
+                    <p class="muted" style="margin-top:8px;">Har bir maktab uchun faoliyat muddatini kunlarda qo'shishingiz mumkin. Muddat tugagach maktab off holatga o'tadi va foydalanuvchilar tizimga kira olmaydi.</p>
+                    <div class="table-container" style="margin-top:12px;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>🏫 Maktab</th>
+                                    <th>👨‍💼 Direktor</th>
+                                    <th>📅 Amal bajarish muddati</th>
+                                    <th>📊 Status</th>
+                                    <th>⏱️ Kun qo'shish</th>
+                                    <th>⚙️ Amallar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminSchoolsTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="schoolClassesContainer" style="margin-top:26px;display:none">
+                    <h3 id="schoolClassesTitle">📚 Maktab sinflari</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>🏢 Sinf</th>
+                                    <th>👨‍🎓 O'quvchilar soni</th>
+                                    <th>⚙️ Amallar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="schoolClassesTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Direktorlar -->
+            <div id="allDirectorsSection" class="content-section">
+                <h2>👨‍💼 Barcha Direktorlar</h2>
+                <p style="color:var(--muted);margin-bottom:20px;">Maktab direktorlarining login va parol ma'lumotlari</p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>🏫 Maktab</th>
+                                <th>🔑 Login</th>
+                                <th>🔐 Parol</th>
+                                <th>⚙️ Amallar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allDirectorsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Direktor Qo'shish -->
+            <div id="addDirectorSection" class="content-section">
+                <h2>➕ Yangi Direktor va Maktab Qo'shish</h2>
+                <p style="color:var(--muted);margin-bottom:24px;font-size:16px;">Yangi o'quv muassasasi va uning direktori uchun tizim hisobi yarating. 5 qadamda yakunlang ✨</p>
+                
+                <!-- Step-by-step instructions -->
+                <div class="form-container" style="background:linear-gradient(135deg,rgba(88,101,255,0.1),rgba(118,75,162,0.08));margin-bottom:24px;border-left:4px solid #5865ff;">
+                    <h3 style="color:#102030;margin-bottom:16px;font-size:18px;">📌 Qo'shishning 5 ta asosiy qadami:</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                        <div style="background:white;padding:14px;border-radius:8px;border-left:4px solid #27ae60;box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                            <strong style="color:#27ae60;font-size:15px;">1️⃣ MAKTAB NOMINI KIRITING</strong>
+                            <p style="color:var(--muted);font-size:14px;margin-top:6px;line-height:1.4;">
+                                Maktabning to'liq rasmiy nomini kiriting. 
+                                <br><em>Masalan: "Mirzo Ulug'bek Maktabi №1", "42-Maktab", "O'zbekistan Maktabi"</em>
+                            </p>
+                        </div>
+                        <div style="background:white;padding:14px;border-radius:8px;border-left:4px solid #3498db;box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                            <strong style="color:#3498db;font-size:15px;">2️⃣ DIREKTOR LOGININI YARATING</strong>
+                            <p style="color:var(--muted);font-size:14px;margin-top:6px;line-height:1.4;">
+                                Noyob login (boshqa maktabda bo'lmasligi kerak).
+                                <br><em>Masalan: "ali_director_2025", "sardor_direkt_1"</em>
+                            </p>
+                        </div>
+                        <div style="background:white;padding:14px;border-radius:8px;border-left:4px solid #e74c3c;box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                            <strong style="color:#e74c3c;font-size:15px;">3️⃣ XAVFSIZ PAROL BELGILANG</strong>
+                            <p style="color:var(--muted);font-size:14px;margin-top:6px;line-height:1.4;">
+                                Katta harf + Kichik harf + Raqam + Belgi kombinatsiyasi.
+                                <br><em>Masalan: "SecurePass@2025", "Director123_Safe"</em>
+                            </p>
+                        </div>
+                        <div style="background:white;padding:14px;border-radius:8px;border-left:4px solid #f39c12;box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                            <strong style="color:#f39c12;font-size:15px;">4️⃣ FAOLIYAT MUDDATI BELGILANG</strong>
+                            <p style="color:var(--muted);font-size:14px;margin-top:6px;line-height:1.4;">
+                                Maktab kunlarda necha vaqt ishlaydi (muddat tugagach off bo'ladi).
+                                <br><em>Masalan: 30=1 oy, 90=3 oy, 365=1 yil</em>
+                            </p>
+                        </div>
+                        <div style="background:white;padding:14px;border-radius:8px;border-left:4px solid #764fa2;box-shadow:0 2px 4px rgba(0,0,0,0.05);grid-column:1/-1;">
+                            <strong style="color:#764fa2;font-size:15px;">5️⃣ QABUL QILING VA QOSHING</strong>
+                            <p style="color:var(--muted);font-size:14px;margin-top:6px;line-height:1.4;">
+                                Barcha maydonlar to'ldirilganini tekshiring va "✅ Qo'shish" tugmasini bosing. Yangi maktab va direktor tizimga qo'shiladi!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main form -->
+                <form id="addDirectorForm" class="form-container" style="background:#ffffff;border:1px solid #e0e0e0;">
+                    <h3 style="color:#102030;margin-bottom:20px;font-size:18px;">📋 Formani Kundalik To'ldiring</h3>
+                    
+                    <!-- Field 1: School Number -->
+                    <div class="form-group">
+                        <label for="schoolName" style="font-weight:700;color:#102030;font-size:16px;display:flex;align-items:center;gap:8px;">
+                            <span style="font-size:20px;">🏫</span>
+                            <span>Maktap nomerini kiriting <span style="color:#e74c3c;">*</span></span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="schoolName" 
+                            placeholder="Masalan: 1, 2, 3" 
+                            required
+                            style="font-size:15px;padding:12px 14px;border:2px solid #e0e0e0;border-radius:6px;width:100%;font-family:inherit;"
+                        >
+                    </div>
+
+                    <!-- Field 2: Director Login -->
+                    <div class="form-group" style="margin-top:18px;">
+                        <label for="directorLogin" style="font-weight:700;color:#102030;font-size:16px;display:flex;align-items:center;gap:8px;">
+                            <span style="font-size:20px;">🔑</span>
+                            <span>Direktor loginini kiriting <span style="color:#e74c3c;">*</span></span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="directorLogin" 
+                            placeholder="Masalan: ali_director_2025" 
+                            required
+                            style="font-size:15px;padding:12px 14px;border:2px solid #e0e0e0;border-radius:6px;width:100%;font-family:inherit;"
+                        >
+                    </div>
+
+                    <!-- Field 3: Director Password -->
+                    <div class="form-group" style="margin-top:18px;">
+                        <label for="directorPassword" style="font-weight:700;color:#102030;font-size:16px;display:flex;align-items:center;gap:8px;">
+                            <span style="font-size:20px;">🔐</span>
+                            <span>Direktor akk parolini kiriting <span style="color:#e74c3c;">*</span></span>
+                        </label>
+                        <input 
+                            type="password" 
+                            id="directorPassword" 
+                            placeholder="Masalan: Parol123" 
+                            required
+                            style="font-size:15px;padding:12px 14px;border:2px solid #e0e0e0;border-radius:6px;width:100%;font-family:inherit;"
+                        >
+                    </div>
+
+                    <!-- Field 4: Expiry Days -->
+                    <div class="form-group" style="margin-top:18px;">
+                        <label for="directorExpiryDays" style="font-weight:700;color:#102030;font-size:16px;display:flex;align-items:center;gap:8px;">
+                            <span style="font-size:20px;">📅</span>
+                            <span>Faoliyat Muddati (Kunlarda) <span style="color:#e74c3c;">*</span></span>
+                        </label>
+                        <input 
+                            type="number" 
+                            id="directorExpiryDays" 
+                            placeholder="Masalan: 30, 90, 180, 365" 
+                            min="1"
+                            max="3650"
+                            required
+                            style="font-size:15px;padding:12px 14px;border:2px solid #e0e0e0;border-radius:6px;width:100%;font-family:inherit;"
+                        >
+                        <small style="color:var(--muted);display:block;margin-top:8px;line-height:1.5;font-size:14px;">
+                            <strong>✓ Muddat haqida:</strong>
+                            <br>✓ Maktab necha kundan keyin avtomatik o'chadi
+                            <br>✓ Muddat tugagach foydalanuvchilar tizimga kira olmaydi
+                            <br>✓ Masallar: 30=1 oy, 90=3 oy, 180=6 oy, 365=1 yil, 730=2 yil
+                            <br>✓ Maksimal 10 yil (3650 kun) qo'ya olasiz
+                        </small>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="display:flex;gap:12px;margin-top:28px;padding-top:20px;border-top:2px solid #f0f0f0;">
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            style="flex:1;padding:16px;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;"
+                        >
+                            <span style="font-size:20px;">✅</span>
+                            <span>Direktor va Maktabni Qo'shish</span>
+                        </button>
+                        <button 
+                            type="reset" 
+                            class="btn btn-secondary"
+                            style="flex:1;padding:16px;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;"
+                        >
+                            <span style="font-size:20px;">🔄</span>
+                            <span>Tozalash</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Success Message Container -->
+                <div id="addDirectorSuccessMessage" style="display:none;margin-top:20px;background:linear-gradient(135deg,rgba(40,167,69,0.1),rgba(23,162,184,0.08));border:2px solid #28a745;border-radius:8px;padding:18px;color:#155724;">
+                    <div style="display:flex;align-items:flex-start;gap:12px;">
+                        <span style="font-size:28px;">✅</span>
+                        <div>
+                            <strong style="font-size:16px;display:block;">Muvaffaqiyatli Qo'shildi!</strong>
+                            <p style="margin-top:8px;line-height:1.6;">
+                                Yangi direktor va maktab tizimga muofavaqiyatli qo'shildi. 
+                                <br>🔐 Login: <strong id="successLogin"></strong>
+                                <br>🏫 Maktab: <strong id="successSchool"></strong>
+                                <br>⏰ Faoliyat muddati: <strong id="successDays"></strong> kun
+                            </p>
+                            <p style="margin-top:10px;color:rgba(0,0,0,0.6);">Endi "👨‍💼 Direktorlar" bo'limida ko'rishingiz mumkin.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Message Container -->
+                <div id="addDirectorErrorMessage" style="display:none;margin-top:20px;background:linear-gradient(135deg,rgba(220,53,69,0.1),rgba(255,193,7,0.08));border:2px solid #dc3545;border-radius:8px;padding:18px;color:#721c24;">
+                    <div style="display:flex;align-items:flex-start;gap:12px;">
+                        <span style="font-size:28px;">❌</span>
+                        <div>
+                            <strong style="font-size:16px;display:block;">Xato Yuz Berdi!</strong>
+                            <p id="addDirectorErrorText" style="margin-top:8px;line-height:1.6;"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Existing Directors Info -->
+                <div class="form-container" style="margin-top:28px;background:linear-gradient(135deg,rgba(52,152,219,0.08),rgba(46,204,113,0.05));border-left:4px solid #3498db;border-top:1px solid #e0e0e0;">
+                    <h3 style="color:#102030;margin-bottom:14px;font-size:16px;display:flex;align-items:center;gap:8px;">
+                        <span style="font-size:20px;">📌</span>
+                        <span>Allaqachon Tizimda Mavjud Bo'lgan Direktorlar</span>
+                    </h3>
+                    <p style="color:var(--muted);margin-bottom:14px;font-size:14px;">
+                        Bu bo'limda barcha qo'shilgan direktorlar va ularning maktablari ko'rsatiladi. 
+                        Agar bir xil login bo'lsa, qo'shishdan oldin boshqasini tanlang!
+                    </p>
+                    <div id="existingDirectorsList" style="background:white;border-radius:6px;padding:14px;border:1px solid #e0e0e0;">
+                        <!-- Filled by JavaScript -->
+                        <p style="color:var(--muted);text-align:center;padding:12px;font-style:italic;">
+                            Hozircha direktor yo'q - birinchisini siz qo'shasiz! 🎉
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
